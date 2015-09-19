@@ -14,7 +14,23 @@ extern u16 goal_warm_bright;
 extern u8 bright_set;
 extern u8 colour_set;
 
-void LED_WarmWhiteBrightSet(u16 dat);
-void LED_ClodWhiteBrightSet(u16 dat);
+extern u8 led_open_flag;
+
+/*智能照明控制命令码*/
+typedef	enum
+{
+	LED_Query = 0x00,               //查询设备当前状态
+	LED_PowerONOFF = 0x02,          //开关灯具，具体打开还是关闭见“开关状态”字节位
+	LED_Bright_Control = 0x03,      //调整亮度到相应值
+	LED_Colour_Temperature = 0x06   //调整色温到相应值
+	
+} LED_Order_Code;
+
+
+
+void LED_StateControl(u8 dat);
+void UpdateBright(void);
+void CurBrighControl(void);
+void MCU_ConfigMode(void);
 
 #endif
