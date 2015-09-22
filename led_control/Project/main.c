@@ -30,7 +30,7 @@ main()
 	//系统初始化
 	System_init();
 
-	//配置及查询hekr模块状态
+	//查询hekr模块状态
 	HekrModuleControl(ModuleQuery);
 	
 	while (1)
@@ -96,11 +96,13 @@ void DataHandle(void)
         // 总亮度控制
         case LED_Bright_Control:
               bright_set = valid_data[3];
-              UpdateBright();break;
+              if(led_open_flag == 1)UpdateBright();
+              break;
         // 色温控制
         case LED_Colour_Temperature:
               colour_set = valid_data[4];
-              UpdateBright();break;
+              if(led_open_flag == 1)UpdateBright();
+              break;
         default:break;
         }
       }

@@ -59,7 +59,7 @@
 4440       00000001      OFST:	set	1
 4443                     ; 74   if(RecvFlag)
 4445  0033 3d00          	tnz	_RecvFlag
-4446  0035 274f          	jreq	L7772
+4446  0035 275b          	jreq	L7772
 4447                     ; 76     temp = HekrRecvDataHandle(RecvBuffer);
 4449  0037 ae0000        	ldw	x,#_RecvBuffer
 4450  003a cd0000        	call	_HekrRecvDataHandle
@@ -68,14 +68,14 @@
 4455  003f be00          	ldw	x,_ModuleStatus
 4456  0041 e601          	ld	a,(1,x)
 4457  0043 a102          	cp	a,#2
-4458  0045 273d          	jreq	L1003
+4458  0045 2749          	jreq	L1003
 4459                     ; 81       if(ValidDataUpdate == temp)
 4461  0047 7b01          	ld	a,(OFST+0,sp)
 4462  0049 a104          	cp	a,#4
-4463  004b 2637          	jrne	L1003
+4463  004b 2643          	jrne	L1003
 4464                     ; 83 				switch(valid_data[0])
 4466  004d b600          	ld	a,_valid_data
-4468                     ; 104         default:break;
+4468                     ; 106         default:break;
 4469  004f 4d            	tnz	a
 4470  0050 270d          	jreq	L7472
 4471  0052 a002          	sub	a,#2
@@ -83,8 +83,8 @@
 4473  0056 4a            	dec	a
 4474  0057 271d          	jreq	L3572
 4475  0059 a003          	sub	a,#3
-4476  005b 2721          	jreq	L5572
-4477  005d 2025          	jra	L1003
+4476  005b 2727          	jreq	L5572
+4477  005d 2031          	jra	L1003
 4478  005f               L7472:
 4479                     ; 86         case LED_Query:
 4479                     ; 87               //保存当前数据
@@ -97,160 +97,166 @@
 4488                     ; 92               HekrValidDataUpload(UserValidLen);break;
 4490  0068 b602          	ld	a,_UserValidLen
 4491  006a cd0000        	call	_HekrValidDataUpload
-4495  006d 2015          	jra	L1003
+4495  006d 2021          	jra	L1003
 4496  006f               L1572:
 4497                     ; 94         case LED_PowerONOFF:
 4497                     ; 95               LED_StateControl(valid_data[1]);break;
 4499  006f b601          	ld	a,_valid_data+1
 4500  0071 cd0000        	call	_LED_StateControl
-4504  0074 200e          	jra	L1003
+4504  0074 201a          	jra	L1003
 4505  0076               L3572:
 4506                     ; 97         case LED_Bright_Control:
 4506                     ; 98               bright_set = valid_data[3];
 4508  0076 450300        	mov	_bright_set,_valid_data+3
-4509                     ; 99               UpdateBright();break;
-4511  0079 cd0000        	call	_UpdateBright
-4515  007c 2006          	jra	L1003
-4516  007e               L5572:
-4517                     ; 101         case LED_Colour_Temperature:
-4517                     ; 102               colour_set = valid_data[4];
-4519  007e 450400        	mov	_colour_set,_valid_data+4
-4520                     ; 103               UpdateBright();break;
-4522  0081 cd0000        	call	_UpdateBright
-4526  0084               L7572:
-4527                     ; 104         default:break;
-4529  0084               L7003:
-4530  0084               L1003:
-4531                     ; 108     RecvFlag = 0;			
-4533  0084 3f00          	clr	_RecvFlag
-4534  0086               L7772:
-4535                     ; 110 }
-4538  0086 84            	pop	a
-4539  0087 81            	ret
-4542                     	bsct
-4543  0003               L1103_timing_delay:
-4544  0003 00            	dc.b	0
-4580                     ; 113 @far @interrupt void TIM1_IRQHandler(void)
-4580                     ; 114 {
-4582                     	switch	.text
-4583  0088               f_TIM1_IRQHandler:
-4586  0088 3b0002        	push	c_x+2
-4587  008b be00          	ldw	x,c_x
-4588  008d 89            	pushw	x
-4589  008e 3b0002        	push	c_y+2
-4590  0091 be00          	ldw	x,c_y
-4591  0093 89            	pushw	x
-4594                     ; 117   if(clod_bright_update || warm_bright_update)
-4596  0094 3d00          	tnz	_clod_bright_update
-4597  0096 2604          	jrne	L3303
-4599  0098 3d00          	tnz	_warm_bright_update
-4600  009a 270d          	jreq	L1303
-4601  009c               L3303:
-4602                     ; 119     timing_delay++;
-4604  009c 3c03          	inc	L1103_timing_delay
-4605                     ; 120     if(20 == timing_delay) 
-4607  009e b603          	ld	a,L1103_timing_delay
-4608  00a0 a114          	cp	a,#20
-4609  00a2 2605          	jrne	L1303
-4610                     ; 122       CurBrighControl();
-4612  00a4 cd0000        	call	_CurBrighControl
-4614                     ; 123       timing_delay = 0;
-4616  00a7 3f03          	clr	L1103_timing_delay
-4617  00a9               L1303:
-4618                     ; 126   TIM1_SR1 &= (~0x01);   
-4620  00a9 72115255      	bres	_TIM1_SR1,#0
-4621                     ; 127 }
-4624  00ad 85            	popw	x
-4625  00ae bf00          	ldw	c_y,x
-4626  00b0 320002        	pop	c_y+2
-4627  00b3 85            	popw	x
-4628  00b4 bf00          	ldw	c_x,x
-4629  00b6 320002        	pop	c_x+2
-4630  00b9 80            	iret
-4632                     	bsct
-4633  0004               L7303_TempFlag:
-4634  0004 00            	dc.b	0
-4680                     ; 129 @far @interrupt void UART1_Recv_IRQHandler(void)
-4680                     ; 130 {
-4681                     	switch	.text
-4682  00ba               f_UART1_Recv_IRQHandler:
-4685       00000001      OFST:	set	1
-4686  00ba 88            	push	a
-4689                     ; 133   ch = UART1_DR;   
-4691  00bb c65231        	ld	a,_UART1_DR
-4692  00be 6b01          	ld	(OFST+0,sp),a
-4693                     ; 134 	if(ch == HEKR_FRAME_HEADER)
-4695  00c0 7b01          	ld	a,(OFST+0,sp)
-4696  00c2 a148          	cp	a,#72
-4697  00c4 2606          	jrne	L3603
-4698                     ; 136 		TempFlag = 1;
-4700  00c6 35010004      	mov	L7303_TempFlag,#1
-4701                     ; 137 		RecvCount = 0;
-4703  00ca 3f01          	clr	_RecvCount
-4704  00cc               L3603:
-4705                     ; 139 	if(TempFlag)
-4707  00cc 3d04          	tnz	L7303_TempFlag
-4708  00ce 2720          	jreq	L5603
-4709                     ; 141 		RecvBuffer[RecvCount++] = ch;
-4711  00d0 b601          	ld	a,_RecvCount
-4712  00d2 97            	ld	xl,a
-4713  00d3 3c01          	inc	_RecvCount
-4714  00d5 9f            	ld	a,xl
-4715  00d6 5f            	clrw	x
-4716  00d7 97            	ld	xl,a
-4717  00d8 7b01          	ld	a,(OFST+0,sp)
-4718  00da e700          	ld	(_RecvBuffer,x),a
-4719                     ; 142 		if(RecvCount > 4 && RecvCount >= RecvBuffer[1])
-4721  00dc b601          	ld	a,_RecvCount
-4722  00de a105          	cp	a,#5
-4723  00e0 250e          	jrult	L5603
-4725  00e2 b601          	ld	a,_RecvCount
-4726  00e4 b101          	cp	a,_RecvBuffer+1
-4727  00e6 2508          	jrult	L5603
-4728                     ; 144 			RecvFlag = 1;
-4730  00e8 35010000      	mov	_RecvFlag,#1
-4731                     ; 145 			TempFlag = 0;
-4733  00ec 3f04          	clr	L7303_TempFlag
-4734                     ; 146 			RecvCount = 0;
-4736  00ee 3f01          	clr	_RecvCount
-4737  00f0               L5603:
-4738                     ; 149 }
-4741  00f0 84            	pop	a
-4742  00f1 80            	iret
-4793                     	xdef	f_UART1_Recv_IRQHandler
-4794                     	xdef	f_TIM1_IRQHandler
-4795                     	xdef	_main
-4796                     	xdef	_DataHandle
-4797                     	xdef	_System_init
-4798                     	xdef	_UserValidLen
-4799                     	switch	.ubsct
-4800  0000               _RecvBuffer:
-4801  0000 000000000000  	ds.b	20
-4802                     	xdef	_RecvBuffer
-4803                     	xdef	_RecvCount
-4804                     	xdef	_RecvFlag
-4805                     	xref	_Bright_ModeInit
-4806                     	xref	_MCU_ConfigMode
-4807                     	xref	_CurBrighControl
-4808                     	xref	_UpdateBright
-4809                     	xref	_LED_StateControl
-4810                     	xref.b	_led_open_flag
-4811                     	xref.b	_colour_set
-4812                     	xref.b	_bright_set
-4813                     	xref.b	_warm_bright_update
-4814                     	xref.b	_clod_bright_update
-4815                     	xref	_TIM1_Init
-4816                     	xref	_TIM2_Init
-4817                     	xref	_HekrValidDataUpload
-4818                     	xref	_HekrModuleControl
-4819                     	xref	_HekrRecvDataHandle
-4820                     	xref	_HekrInit
-4821                     	xref.b	_ModuleStatus
-4822                     	xref.b	_valid_data
-4823                     	xref	_UART1_SendChar
-4824                     	xref	_UART1_Init
-4825                     	xref	_delay_init
-4826                     	xref	_System_Clock_init
-4827                     	xref.b	c_x
-4828                     	xref.b	c_y
-4848                     	end
+4509                     ; 99               if(led_open_flag == 1)UpdateBright();
+4511  0079 b600          	ld	a,_led_open_flag
+4512  007b a101          	cp	a,#1
+4513  007d 2611          	jrne	L1003
+4516  007f cd0000        	call	_UpdateBright
+4518  0082 200c          	jra	L1003
+4519  0084               L5572:
+4520                     ; 102         case LED_Colour_Temperature:
+4520                     ; 103               colour_set = valid_data[4];
+4522  0084 450400        	mov	_colour_set,_valid_data+4
+4523                     ; 104               if(led_open_flag == 1)UpdateBright();
+4525  0087 b600          	ld	a,_led_open_flag
+4526  0089 a101          	cp	a,#1
+4527  008b 2603          	jrne	L1003
+4530  008d cd0000        	call	_UpdateBright
+4532  0090               L7572:
+4533                     ; 106         default:break;
+4535  0090               L7003:
+4536  0090               L1003:
+4537                     ; 110     RecvFlag = 0;			
+4539  0090 3f00          	clr	_RecvFlag
+4540  0092               L7772:
+4541                     ; 112 }
+4544  0092 84            	pop	a
+4545  0093 81            	ret
+4548                     	bsct
+4549  0003               L5103_timing_delay:
+4550  0003 00            	dc.b	0
+4586                     ; 115 @far @interrupt void TIM1_IRQHandler(void)
+4586                     ; 116 {
+4588                     	switch	.text
+4589  0094               f_TIM1_IRQHandler:
+4592  0094 3b0002        	push	c_x+2
+4593  0097 be00          	ldw	x,c_x
+4594  0099 89            	pushw	x
+4595  009a 3b0002        	push	c_y+2
+4596  009d be00          	ldw	x,c_y
+4597  009f 89            	pushw	x
+4600                     ; 119   if(clod_bright_update || warm_bright_update)
+4602  00a0 3d00          	tnz	_clod_bright_update
+4603  00a2 2604          	jrne	L7303
+4605  00a4 3d00          	tnz	_warm_bright_update
+4606  00a6 270d          	jreq	L5303
+4607  00a8               L7303:
+4608                     ; 121     timing_delay++;
+4610  00a8 3c03          	inc	L5103_timing_delay
+4611                     ; 122     if(20 == timing_delay) 
+4613  00aa b603          	ld	a,L5103_timing_delay
+4614  00ac a114          	cp	a,#20
+4615  00ae 2605          	jrne	L5303
+4616                     ; 124       CurBrighControl();
+4618  00b0 cd0000        	call	_CurBrighControl
+4620                     ; 125       timing_delay = 0;
+4622  00b3 3f03          	clr	L5103_timing_delay
+4623  00b5               L5303:
+4624                     ; 128   TIM1_SR1 &= (~0x01);   
+4626  00b5 72115255      	bres	_TIM1_SR1,#0
+4627                     ; 129 }
+4630  00b9 85            	popw	x
+4631  00ba bf00          	ldw	c_y,x
+4632  00bc 320002        	pop	c_y+2
+4633  00bf 85            	popw	x
+4634  00c0 bf00          	ldw	c_x,x
+4635  00c2 320002        	pop	c_x+2
+4636  00c5 80            	iret
+4638                     	bsct
+4639  0004               L3403_TempFlag:
+4640  0004 00            	dc.b	0
+4686                     ; 131 @far @interrupt void UART1_Recv_IRQHandler(void)
+4686                     ; 132 {
+4687                     	switch	.text
+4688  00c6               f_UART1_Recv_IRQHandler:
+4691       00000001      OFST:	set	1
+4692  00c6 88            	push	a
+4695                     ; 135   ch = UART1_DR;   
+4697  00c7 c65231        	ld	a,_UART1_DR
+4698  00ca 6b01          	ld	(OFST+0,sp),a
+4699                     ; 136 	if(ch == HEKR_FRAME_HEADER)
+4701  00cc 7b01          	ld	a,(OFST+0,sp)
+4702  00ce a148          	cp	a,#72
+4703  00d0 2606          	jrne	L7603
+4704                     ; 138 		TempFlag = 1;
+4706  00d2 35010004      	mov	L3403_TempFlag,#1
+4707                     ; 139 		RecvCount = 0;
+4709  00d6 3f01          	clr	_RecvCount
+4710  00d8               L7603:
+4711                     ; 141 	if(TempFlag)
+4713  00d8 3d04          	tnz	L3403_TempFlag
+4714  00da 2720          	jreq	L1703
+4715                     ; 143 		RecvBuffer[RecvCount++] = ch;
+4717  00dc b601          	ld	a,_RecvCount
+4718  00de 97            	ld	xl,a
+4719  00df 3c01          	inc	_RecvCount
+4720  00e1 9f            	ld	a,xl
+4721  00e2 5f            	clrw	x
+4722  00e3 97            	ld	xl,a
+4723  00e4 7b01          	ld	a,(OFST+0,sp)
+4724  00e6 e700          	ld	(_RecvBuffer,x),a
+4725                     ; 144 		if(RecvCount > 4 && RecvCount >= RecvBuffer[1])
+4727  00e8 b601          	ld	a,_RecvCount
+4728  00ea a105          	cp	a,#5
+4729  00ec 250e          	jrult	L1703
+4731  00ee b601          	ld	a,_RecvCount
+4732  00f0 b101          	cp	a,_RecvBuffer+1
+4733  00f2 2508          	jrult	L1703
+4734                     ; 146 			RecvFlag = 1;
+4736  00f4 35010000      	mov	_RecvFlag,#1
+4737                     ; 147 			TempFlag = 0;
+4739  00f8 3f04          	clr	L3403_TempFlag
+4740                     ; 148 			RecvCount = 0;
+4742  00fa 3f01          	clr	_RecvCount
+4743  00fc               L1703:
+4744                     ; 151 }
+4747  00fc 84            	pop	a
+4748  00fd 80            	iret
+4799                     	xdef	f_UART1_Recv_IRQHandler
+4800                     	xdef	f_TIM1_IRQHandler
+4801                     	xdef	_main
+4802                     	xdef	_DataHandle
+4803                     	xdef	_System_init
+4804                     	xdef	_UserValidLen
+4805                     	switch	.ubsct
+4806  0000               _RecvBuffer:
+4807  0000 000000000000  	ds.b	20
+4808                     	xdef	_RecvBuffer
+4809                     	xdef	_RecvCount
+4810                     	xdef	_RecvFlag
+4811                     	xref	_Bright_ModeInit
+4812                     	xref	_MCU_ConfigMode
+4813                     	xref	_CurBrighControl
+4814                     	xref	_UpdateBright
+4815                     	xref	_LED_StateControl
+4816                     	xref.b	_led_open_flag
+4817                     	xref.b	_colour_set
+4818                     	xref.b	_bright_set
+4819                     	xref.b	_warm_bright_update
+4820                     	xref.b	_clod_bright_update
+4821                     	xref	_TIM1_Init
+4822                     	xref	_TIM2_Init
+4823                     	xref	_HekrValidDataUpload
+4824                     	xref	_HekrModuleControl
+4825                     	xref	_HekrRecvDataHandle
+4826                     	xref	_HekrInit
+4827                     	xref.b	_ModuleStatus
+4828                     	xref.b	_valid_data
+4829                     	xref	_UART1_SendChar
+4830                     	xref	_UART1_Init
+4831                     	xref	_delay_init
+4832                     	xref	_System_Clock_init
+4833                     	xref.b	c_x
+4834                     	xref.b	c_y
+4854                     	end

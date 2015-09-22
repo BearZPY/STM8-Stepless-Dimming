@@ -156,10 +156,12 @@ void MCU_ConfigMode(void)
     delay_ms(300);
     if(flag++%2)
     {
+      bright_set = 0x49;
       colour_set = 0xFF;
     }  
     else  
     {
+      bright_set = 0x49;
       colour_set = 0x00;
     }
     UpdateBright();

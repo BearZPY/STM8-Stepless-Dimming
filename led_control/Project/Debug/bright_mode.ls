@@ -25,113 +25,129 @@
 4317  0015 95            	ld	xh,a
 4318  0016 cd0000        	call	_WriteEEPROM
 4320  0019               L1572:
-4321                     ; 28   delay_ms(500);
+4321                     ; 28   delay_ms(500);delay_ms(500);
 4323  0019 ae01f4        	ldw	x,#500
 4324  001c cd0000        	call	_delay_ms
-4326                     ; 29   delay_ms(500);
 4328  001f ae01f4        	ldw	x,#500
 4329  0022 cd0000        	call	_delay_ms
-4331                     ; 30   delay_ms(500);
+4331                     ; 29   delay_ms(500);delay_ms(500);
 4333  0025 ae01f4        	ldw	x,#500
 4334  0028 cd0000        	call	_delay_ms
-4336                     ; 32   WriteEEPROM(COUNT_BYTE,0x00);
-4338  002b 5f            	clrw	x
-4339  002c 4f            	clr	a
-4340  002d 95            	ld	xh,a
-4341  002e cd0000        	call	_WriteEEPROM
-4343                     ; 34 	switch(count)
-4345  0031 7b01          	ld	a,(OFST+0,sp)
-4347                     ; 53   default:
-4347                     ; 54           break;
-4348  0033 4a            	dec	a
-4349  0034 270b          	jreq	L3172
-4350  0036 4a            	dec	a
-4351  0037 2718          	jreq	L5172
-4352  0039 4a            	dec	a
-4353  003a 2725          	jreq	L7172
-4354  003c 4a            	dec	a
-4355  003d 2732          	jreq	L1272
-4356  003f 2069          	jra	L5572
-4357  0041               L3172:
-4358                     ; 36   case 1: bright_set = ReadEEPROM(BrightMode1);
-4360  0041 a601          	ld	a,#1
-4361  0043 cd0000        	call	_ReadEEPROM
-4363  0046 b700          	ld	_bright_set,a
-4364                     ; 37           colour_set = ReadEEPROM(ColourMode1);
-4366  0048 a602          	ld	a,#2
-4367  004a cd0000        	call	_ReadEEPROM
-4369  004d b700          	ld	_colour_set,a
-4370                     ; 38           break;
-4372  004f 2059          	jra	L5572
-4373  0051               L5172:
-4374                     ; 39   case 2: bright_set = ReadEEPROM(BrightMode2);
-4376  0051 a603          	ld	a,#3
-4377  0053 cd0000        	call	_ReadEEPROM
-4379  0056 b700          	ld	_bright_set,a
-4380                     ; 40           colour_set = ReadEEPROM(ColourMode2);
-4382  0058 a604          	ld	a,#4
-4383  005a cd0000        	call	_ReadEEPROM
-4385  005d b700          	ld	_colour_set,a
-4386                     ; 41           break;
-4388  005f 2049          	jra	L5572
-4389  0061               L7172:
-4390                     ; 42   case 3: bright_set = ReadEEPROM(BrightMode3);
-4392  0061 a605          	ld	a,#5
-4393  0063 cd0000        	call	_ReadEEPROM
-4395  0066 b700          	ld	_bright_set,a
-4396                     ; 43           colour_set = ReadEEPROM(ColourMode3);
-4398  0068 a606          	ld	a,#6
-4399  006a cd0000        	call	_ReadEEPROM
-4401  006d b700          	ld	_colour_set,a
-4402                     ; 44           break;
-4404  006f 2039          	jra	L5572
-4405  0071               L1272:
-4406                     ; 48   case 4: HekrModuleControl(HekrConfig);
-4408  0071 a604          	ld	a,#4
-4409  0073 cd0000        	call	_HekrModuleControl
-4411                     ; 49           WriteEEPROM(BrightMode1,0x32);WriteEEPROM(ColourMode1,0x80);
-4413  0076 ae0032        	ldw	x,#50
-4414  0079 a601          	ld	a,#1
-4415  007b 95            	ld	xh,a
-4416  007c cd0000        	call	_WriteEEPROM
-4420  007f ae0080        	ldw	x,#128
-4421  0082 a602          	ld	a,#2
-4422  0084 95            	ld	xh,a
-4423  0085 cd0000        	call	_WriteEEPROM
-4425                     ; 50           WriteEEPROM(BrightMode2,0x32);WriteEEPROM(ColourMode2,0x00);
-4427  0088 ae0032        	ldw	x,#50
-4428  008b a603          	ld	a,#3
-4429  008d 95            	ld	xh,a
-4430  008e cd0000        	call	_WriteEEPROM
-4434  0091 5f            	clrw	x
-4435  0092 a604          	ld	a,#4
-4436  0094 95            	ld	xh,a
-4437  0095 cd0000        	call	_WriteEEPROM
-4439                     ; 51           WriteEEPROM(BrightMode3,0x32);WriteEEPROM(ColourMode3,0xFF);
-4441  0098 ae0032        	ldw	x,#50
-4442  009b a605          	ld	a,#5
-4443  009d 95            	ld	xh,a
-4444  009e cd0000        	call	_WriteEEPROM
-4448  00a1 ae00ff        	ldw	x,#255
-4449  00a4 a606          	ld	a,#6
-4450  00a6 95            	ld	xh,a
-4451  00a7 cd0000        	call	_WriteEEPROM
-4453                     ; 52           break;
-4455  00aa               L3272:
-4456                     ; 53   default:
-4456                     ; 54           break;
-4458  00aa               L5572:
-4459                     ; 56   UpdateBright();
-4461  00aa cd0000        	call	_UpdateBright
-4463                     ; 57 }
-4466  00ad 84            	pop	a
-4467  00ae 81            	ret
-4480                     	xref	_HekrModuleControl
-4481                     	xref	_UpdateBright
-4482                     	xref.b	_colour_set
-4483                     	xref.b	_bright_set
-4484                     	xref	_delay_ms
-4485                     	xref	_WriteEEPROM
-4486                     	xref	_ReadEEPROM
-4487                     	xdef	_Bright_ModeInit
-4506                     	end
+4338  002b ae01f4        	ldw	x,#500
+4339  002e cd0000        	call	_delay_ms
+4341                     ; 30   delay_ms(500);delay_ms(500);
+4343  0031 ae01f4        	ldw	x,#500
+4344  0034 cd0000        	call	_delay_ms
+4348  0037 ae01f4        	ldw	x,#500
+4349  003a cd0000        	call	_delay_ms
+4351                     ; 31   delay_ms(500);delay_ms(500);
+4353  003d ae01f4        	ldw	x,#500
+4354  0040 cd0000        	call	_delay_ms
+4358  0043 ae01f4        	ldw	x,#500
+4359  0046 cd0000        	call	_delay_ms
+4361                     ; 32   delay_ms(500);delay_ms(500);
+4363  0049 ae01f4        	ldw	x,#500
+4364  004c cd0000        	call	_delay_ms
+4368  004f ae01f4        	ldw	x,#500
+4369  0052 cd0000        	call	_delay_ms
+4371                     ; 34   WriteEEPROM(COUNT_BYTE,0x00);
+4373  0055 5f            	clrw	x
+4374  0056 4f            	clr	a
+4375  0057 95            	ld	xh,a
+4376  0058 cd0000        	call	_WriteEEPROM
+4378                     ; 36 	switch(count)
+4380  005b 7b01          	ld	a,(OFST+0,sp)
+4382                     ; 55   default:
+4382                     ; 56           break;
+4383  005d 4a            	dec	a
+4384  005e 270b          	jreq	L3172
+4385  0060 4a            	dec	a
+4386  0061 2718          	jreq	L5172
+4387  0063 4a            	dec	a
+4388  0064 2725          	jreq	L7172
+4389  0066 4a            	dec	a
+4390  0067 2732          	jreq	L1272
+4391  0069 2069          	jra	L5572
+4392  006b               L3172:
+4393                     ; 38   case 1: bright_set = ReadEEPROM(BrightMode1);
+4395  006b a601          	ld	a,#1
+4396  006d cd0000        	call	_ReadEEPROM
+4398  0070 b700          	ld	_bright_set,a
+4399                     ; 39           colour_set = ReadEEPROM(ColourMode1);
+4401  0072 a602          	ld	a,#2
+4402  0074 cd0000        	call	_ReadEEPROM
+4404  0077 b700          	ld	_colour_set,a
+4405                     ; 40           break;
+4407  0079 2059          	jra	L5572
+4408  007b               L5172:
+4409                     ; 41   case 2: bright_set = ReadEEPROM(BrightMode2);
+4411  007b a603          	ld	a,#3
+4412  007d cd0000        	call	_ReadEEPROM
+4414  0080 b700          	ld	_bright_set,a
+4415                     ; 42           colour_set = ReadEEPROM(ColourMode2);
+4417  0082 a604          	ld	a,#4
+4418  0084 cd0000        	call	_ReadEEPROM
+4420  0087 b700          	ld	_colour_set,a
+4421                     ; 43           break;
+4423  0089 2049          	jra	L5572
+4424  008b               L7172:
+4425                     ; 44   case 3: bright_set = ReadEEPROM(BrightMode3);
+4427  008b a605          	ld	a,#5
+4428  008d cd0000        	call	_ReadEEPROM
+4430  0090 b700          	ld	_bright_set,a
+4431                     ; 45           colour_set = ReadEEPROM(ColourMode3);
+4433  0092 a606          	ld	a,#6
+4434  0094 cd0000        	call	_ReadEEPROM
+4436  0097 b700          	ld	_colour_set,a
+4437                     ; 46           break;
+4439  0099 2039          	jra	L5572
+4440  009b               L1272:
+4441                     ; 50   case 4: HekrModuleControl(HekrConfig);
+4443  009b a604          	ld	a,#4
+4444  009d cd0000        	call	_HekrModuleControl
+4446                     ; 51           WriteEEPROM(BrightMode1,0x32);WriteEEPROM(ColourMode1,0x80);
+4448  00a0 ae0032        	ldw	x,#50
+4449  00a3 a601          	ld	a,#1
+4450  00a5 95            	ld	xh,a
+4451  00a6 cd0000        	call	_WriteEEPROM
+4455  00a9 ae0080        	ldw	x,#128
+4456  00ac a602          	ld	a,#2
+4457  00ae 95            	ld	xh,a
+4458  00af cd0000        	call	_WriteEEPROM
+4460                     ; 52           WriteEEPROM(BrightMode2,0x32);WriteEEPROM(ColourMode2,0x00);
+4462  00b2 ae0032        	ldw	x,#50
+4463  00b5 a603          	ld	a,#3
+4464  00b7 95            	ld	xh,a
+4465  00b8 cd0000        	call	_WriteEEPROM
+4469  00bb 5f            	clrw	x
+4470  00bc a604          	ld	a,#4
+4471  00be 95            	ld	xh,a
+4472  00bf cd0000        	call	_WriteEEPROM
+4474                     ; 53           WriteEEPROM(BrightMode3,0x32);WriteEEPROM(ColourMode3,0xFF);
+4476  00c2 ae0032        	ldw	x,#50
+4477  00c5 a605          	ld	a,#5
+4478  00c7 95            	ld	xh,a
+4479  00c8 cd0000        	call	_WriteEEPROM
+4483  00cb ae00ff        	ldw	x,#255
+4484  00ce a606          	ld	a,#6
+4485  00d0 95            	ld	xh,a
+4486  00d1 cd0000        	call	_WriteEEPROM
+4488                     ; 54           break;
+4490  00d4               L3272:
+4491                     ; 55   default:
+4491                     ; 56           break;
+4493  00d4               L5572:
+4494                     ; 58   UpdateBright();
+4496  00d4 cd0000        	call	_UpdateBright
+4498                     ; 59 }
+4501  00d7 84            	pop	a
+4502  00d8 81            	ret
+4515                     	xref	_HekrModuleControl
+4516                     	xref	_UpdateBright
+4517                     	xref.b	_colour_set
+4518                     	xref.b	_bright_set
+4519                     	xref	_delay_ms
+4520                     	xref	_WriteEEPROM
+4521                     	xref	_ReadEEPROM
+4522                     	xdef	_Bright_ModeInit
+4541                     	end

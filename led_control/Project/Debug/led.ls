@@ -315,57 +315,61 @@
 4941                     	bsct
 4942  000d               L5413_flag:
 4943  000d 0000          	dc.w	0
-4980                     ; 151 void MCU_ConfigMode(void)
-4980                     ; 152 {
-4981                     	switch	.text
-4982  0169               _MCU_ConfigMode:
-4986                     ; 154   if(!clod_bright_update && !warm_bright_update)
-4988  0169 3d00          	tnz	_clod_bright_update
-4989  016b 2629          	jrne	L5613
-4991  016d 3d01          	tnz	_warm_bright_update
-4992  016f 2625          	jrne	L5613
-4993                     ; 156     delay_ms(300);
-4995  0171 ae012c        	ldw	x,#300
-4996  0174 cd0000        	call	_delay_ms
-4998                     ; 157     if(flag++%2)
-5000  0177 be0d          	ldw	x,L5413_flag
-5001  0179 1c0001        	addw	x,#1
-5002  017c bf0d          	ldw	L5413_flag,x
-5003  017e 1d0001        	subw	x,#1
-5004  0181 a602          	ld	a,#2
-5005  0183 cd0000        	call	c_smodx
-5007  0186 a30000        	cpw	x,#0
-5008  0189 2706          	jreq	L7613
-5009                     ; 159       colour_set = 0xFF;
-5011  018b 35ff000b      	mov	_colour_set,#255
-5013  018f 2002          	jra	L1713
-5014  0191               L7613:
-5015                     ; 163       colour_set = 0x00;
-5017  0191 3f0b          	clr	_colour_set
-5018  0193               L1713:
-5019                     ; 165     UpdateBright();
-5021  0193 cd00cf        	call	_UpdateBright
-5023  0196               L5613:
-5024                     ; 167 }
-5027  0196 81            	ret
-5123                     	xdef	_LED_ClodWhiteBrightSet
-5124                     	xdef	_LED_WarmWhiteBrightSet
-5125                     	xref	_TIM2_CH3_Duty
-5126                     	xref	_TIM2_CH2_Duty
-5127                     	xref	_delay_ms
-5128                     	xdef	_MCU_ConfigMode
-5129                     	xdef	_CurBrighControl
-5130                     	xdef	_UpdateBright
-5131                     	xdef	_LED_StateControl
-5132                     	xdef	_led_open_flag
-5133                     	xdef	_colour_set
-5134                     	xdef	_bright_set
-5135                     	xdef	_goal_warm_bright
-5136                     	xdef	_goal_clod_bright
-5137                     	xdef	_cur_warm_bright
-5138                     	xdef	_cur_clod_bright
-5139                     	xdef	_warm_bright_update
-5140                     	xdef	_clod_bright_update
-5159                     	xref	c_smodx
-5160                     	xref	c_imul
-5161                     	end
+4981                     ; 151 void MCU_ConfigMode(void)
+4981                     ; 152 {
+4982                     	switch	.text
+4983  0169               _MCU_ConfigMode:
+4987                     ; 154   if(!clod_bright_update && !warm_bright_update)
+4989  0169 3d00          	tnz	_clod_bright_update
+4990  016b 2631          	jrne	L5613
+4992  016d 3d01          	tnz	_warm_bright_update
+4993  016f 262d          	jrne	L5613
+4994                     ; 156     delay_ms(300);
+4996  0171 ae012c        	ldw	x,#300
+4997  0174 cd0000        	call	_delay_ms
+4999                     ; 157     if(flag++%2)
+5001  0177 be0d          	ldw	x,L5413_flag
+5002  0179 1c0001        	addw	x,#1
+5003  017c bf0d          	ldw	L5413_flag,x
+5004  017e 1d0001        	subw	x,#1
+5005  0181 a602          	ld	a,#2
+5006  0183 cd0000        	call	c_smodx
+5008  0186 a30000        	cpw	x,#0
+5009  0189 270a          	jreq	L7613
+5010                     ; 159       bright_set = 0x49;
+5012  018b 3549000a      	mov	_bright_set,#73
+5013                     ; 160       colour_set = 0xFF;
+5015  018f 35ff000b      	mov	_colour_set,#255
+5017  0193 2006          	jra	L1713
+5018  0195               L7613:
+5019                     ; 164       bright_set = 0x49;
+5021  0195 3549000a      	mov	_bright_set,#73
+5022                     ; 165       colour_set = 0x00;
+5024  0199 3f0b          	clr	_colour_set
+5025  019b               L1713:
+5026                     ; 167     UpdateBright();
+5028  019b cd00cf        	call	_UpdateBright
+5030  019e               L5613:
+5031                     ; 169 }
+5034  019e 81            	ret
+5130                     	xdef	_LED_ClodWhiteBrightSet
+5131                     	xdef	_LED_WarmWhiteBrightSet
+5132                     	xref	_TIM2_CH3_Duty
+5133                     	xref	_TIM2_CH2_Duty
+5134                     	xref	_delay_ms
+5135                     	xdef	_MCU_ConfigMode
+5136                     	xdef	_CurBrighControl
+5137                     	xdef	_UpdateBright
+5138                     	xdef	_LED_StateControl
+5139                     	xdef	_led_open_flag
+5140                     	xdef	_colour_set
+5141                     	xdef	_bright_set
+5142                     	xdef	_goal_warm_bright
+5143                     	xdef	_goal_clod_bright
+5144                     	xdef	_cur_warm_bright
+5145                     	xdef	_cur_clod_bright
+5146                     	xdef	_warm_bright_update
+5147                     	xdef	_clod_bright_update
+5166                     	xref	c_smodx
+5167                     	xref	c_imul
+5168                     	end

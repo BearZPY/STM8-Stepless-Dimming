@@ -1,5 +1,5 @@
 
-Map of Debug\led_control.sm8 from link file Debug\led_control.lkf - Fri Sep 18 17:51:54 2015
+Map of Debug\led_control.sm8 from link file Debug\led_control.lkf - Mon Sep 21 17:29:41 2015
 
 
                                --------
@@ -7,7 +7,7 @@ Map of Debug\led_control.sm8 from link file Debug\led_control.lkf - Fri Sep 18 1
                                --------
 
 start 00008080 end 00008080 length     0 segment .const
-start 000080a0 end 0000875e length  1726 segment .text
+start 000080a0 end 0000879c length  1788 segment .text
 start 00004000 end 00004000 length     0 segment .eeprom
 start 00000000 end 00000018 length    24 segment .bsct, initialized
 start 00008088 end 000080a0 length    24 segment .bsct, from
@@ -31,56 +31,56 @@ start 00000100 end 00000100 length     0 section .bss
 start 00000018 end 00000018 length     0 section .ubsct
 
 Debug\bright_mode.o:
-start 000080eb end 0000819a length   175 section .text
+start 000080eb end 000081c4 length   217 section .text
 start 00000000 end 00002e41 length 11841 section .debug
 
 Debug\hekr_protocol.o:
-start 0000819a end 0000833e length   420 section .text
+start 000081c4 end 00008368 length   420 section .text
 start 00000000 end 00000003 length     3 section .bsct
 start 00000018 end 00000069 length    81 section .ubsct
 start 00002e41 end 000035ab length  1898 section .debug
 
 Debug\led.o:
-start 0000833e end 000084d5 length   407 section .text
+start 00008368 end 00008507 length   415 section .text
 start 00000003 end 00000012 length    15 section .bsct
 start 000035ab end 000067eb length 12864 section .debug
 
 Debug\stm8_eeprom.o:
-start 000084d5 end 00008531 length    92 section .text
+start 00008507 end 00008563 length    92 section .text
 start 000067eb end 00009763 length 12152 section .debug
 
 Debug\stm8_tim1.o:
-start 00008531 end 0000854a length    25 section .text
+start 00008563 end 0000857c length    25 section .text
 start 00009763 end 0000b232 length  6863 section .debug
 
 Debug\stm8_tim2pwm.o:
-start 0000854a end 0000857d length    51 section .text
+start 0000857c end 000085af length    51 section .text
 start 0000b232 end 0000cde6 length  7092 section .debug
 
 Debug\stm8_uart.o:
-start 0000857d end 000085ad length    48 section .text
+start 000085af end 000085df length    48 section .text
 start 0000cde6 end 0000e967 length  7041 section .debug
 
 Debug\main.o:
-start 000085ad end 0000869f length   242 section .text
+start 000085df end 000086dd length   254 section .text
 start 00000012 end 00000017 length     5 section .bsct
 start 00000069 end 0000007d length    20 section .ubsct
 start 0000e967 end 0001197d length 12310 section .debug
 
 Debug\delay.o:
-start 0000869f end 00008708 length   105 section .text
+start 000086dd end 00008746 length   105 section .text
 start 00000017 end 00000018 length     1 section .bsct
 start 0001197d end 00011b34 length   439 section .debug
 
 Debug\sys.o:
-start 00008708 end 00008711 length     9 section .text
+start 00008746 end 0000874f length     9 section .text
 start 00011b34 end 00014950 length 11804 section .debug
 
 (D:\Program Files (x86)\COSMIC\CXSTM8\Lib\libm0.sm8)imul.o:
-start 00008711 end 00008732 length    33 section .text
+start 0000874f end 00008770 length    33 section .text
 
 (D:\Program Files (x86)\COSMIC\CXSTM8\Lib\libm0.sm8)sdivx.o:
-start 00008732 end 0000875d length    43 section .text
+start 00008770 end 0000879b length    43 section .text
 
 (D:\Program Files (x86)\COSMIC\CXSTM8\Lib\libm0.sm8)xreg.o:
 start 0000007d end 00000080 length     3 section .ubsct
@@ -89,7 +89,7 @@ start 0000007d end 00000080 length     3 section .ubsct
 start 00000080 end 00000083 length     3 section .ubsct
 
 Debug\stm8_interrupt_vector.o:
-start 0000875d end 0000875e length     1 section .text
+start 0000879b end 0000879c length     1 section .text
 start 00014950 end 00014abb length   363 section .debug
 start 00008000 end 00008080 length   128 section .const
 
@@ -401,9 +401,9 @@ _CLK_PCKENR2              000050ca   defined in Debug\bright_mode.o
 _CLK_SWCR                 000050c5   defined in Debug\bright_mode.o
 _CLK_SWIMCCR              000050cd   defined in Debug\bright_mode.o
 _CLK_SWR                  000050c4   defined in Debug\bright_mode.o
-_CurBrighControl          0000842a   defined in Debug\led.o section .text
+_CurBrighControl          00008454   defined in Debug\led.o section .text
                                      used in Debug\main.o
-_DataHandle               000085df   defined in Debug\main.o section .text
+_DataHandle               00008611   defined in Debug\main.o section .text
 _EXTI_CR1                 000050a0   defined in Debug\bright_mode.o
 _EXTI_CR2                 000050a1   defined in Debug\bright_mode.o
 _FLASH_CR1                0000505a   defined in Debug\bright_mode.o
@@ -414,13 +414,13 @@ _FLASH_IAPSR              0000505f   defined in Debug\bright_mode.o
 _FLASH_NCR2               0000505c   defined in Debug\bright_mode.o
 _FLASH_NFPR               0000505e   defined in Debug\bright_mode.o
 _FLASH_PUKR               00005062   defined in Debug\bright_mode.o
-_HekrInit                 0000819a   defined in Debug\hekr_protocol.o section .text
+_HekrInit                 000081c4   defined in Debug\hekr_protocol.o section .text
                                      used in Debug\main.o
-_HekrModuleControl        00008222   defined in Debug\hekr_protocol.o section .text
+_HekrModuleControl        0000824c   defined in Debug\hekr_protocol.o section .text
                                      used in Debug\bright_mode.o Debug\main.o
-_HekrRecvDataHandle       0000819d   defined in Debug\hekr_protocol.o section .text
+_HekrRecvDataHandle       000081c7   defined in Debug\hekr_protocol.o section .text
                                      used in Debug\main.o
-_HekrValidDataUpload      000081f3   defined in Debug\hekr_protocol.o section .text
+_HekrValidDataUpload      0000821d   defined in Debug\hekr_protocol.o section .text
                                      used in Debug\main.o
 _I2C_CCRH                 0000521c   defined in Debug\bright_mode.o
 _I2C_CCRL                 0000521b   defined in Debug\bright_mode.o
@@ -446,11 +446,11 @@ _ITC_SPR7                 00007f76   defined in Debug\bright_mode.o
 _IWDG_KR                  000050e0   defined in Debug\bright_mode.o
 _IWDG_PR                  000050e1   defined in Debug\bright_mode.o
 _IWDG_RLR                 000050e2   defined in Debug\bright_mode.o
-_LED_ClodWhiteBrightSet   00008349   defined in Debug\led.o section .text
-_LED_StateControl         00008354   defined in Debug\led.o section .text
+_LED_ClodWhiteBrightSet   00008373   defined in Debug\led.o section .text
+_LED_StateControl         0000837e   defined in Debug\led.o section .text
                                      used in Debug\main.o
-_LED_WarmWhiteBrightSet   0000833e   defined in Debug\led.o section .text
-_MCU_ConfigMode           000084a7   defined in Debug\led.o section .text
+_LED_WarmWhiteBrightSet   00008368   defined in Debug\led.o section .text
+_MCU_ConfigMode           000084d1   defined in Debug\led.o section .text
                                      used in Debug\main.o
 _ModuleStatus             00000001   defined in Debug\hekr_protocol.o section .bsct, initialized
                                      used in Debug\main.o
@@ -623,7 +623,7 @@ _PD_DDR                   00005011   defined in Debug\bright_mode.o
 _PD_IDR                   00005010   defined in Debug\bright_mode.o
 _PD_ODR                   0000500f   defined in Debug\bright_mode.o
 _RST_SR                   000050b3   defined in Debug\bright_mode.o
-_ReadEEPROM               000084ec   defined in Debug\stm8_eeprom.o section .text
+_ReadEEPROM               0000851e   defined in Debug\stm8_eeprom.o section .text
                                      used in Debug\bright_mode.o
 _RecvBuffer               00000069   defined in Debug\main.o section .ubsct
 _RecvCount                00000013   defined in Debug\main.o section .bsct, initialized
@@ -636,9 +636,9 @@ _SPI_ICR                  00005202   defined in Debug\bright_mode.o
 _SPI_RXCRCR               00005206   defined in Debug\bright_mode.o
 _SPI_SR                   00005203   defined in Debug\bright_mode.o
 _SPI_TXCRCR               00005207   defined in Debug\bright_mode.o
-_System_Clock_init        00008708   defined in Debug\sys.o section .text
+_System_Clock_init        00008746   defined in Debug\sys.o section .text
                                      used in Debug\main.o
-_System_init              000085c3   defined in Debug\main.o section .text
+_System_init              000085f5   defined in Debug\main.o section .text
 _TIM1_ARR                 00005262   defined in Debug\bright_mode.o
 _TIM1_ARRH                00005262   defined in Debug\bright_mode.o
 _TIM1_ARRL                00005263   defined in Debug\bright_mode.o
@@ -670,7 +670,7 @@ _TIM1_DTR                 0000526e   defined in Debug\bright_mode.o
 _TIM1_EGR                 00005257   defined in Debug\bright_mode.o
 _TIM1_ETR                 00005253   defined in Debug\bright_mode.o
 _TIM1_IER                 00005254   defined in Debug\bright_mode.o
-_TIM1_Init                00008531   defined in Debug\stm8_tim1.o section .text
+_TIM1_Init                00008563   defined in Debug\stm8_tim1.o section .text
                                      used in Debug\main.o
 _TIM1_OISR                0000526f   defined in Debug\bright_mode.o
 _TIM1_PSCR                00005260   defined in Debug\bright_mode.o
@@ -697,9 +697,9 @@ _TIM2_CCR2L               00005314   defined in Debug\bright_mode.o
 _TIM2_CCR3                00005315   defined in Debug\bright_mode.o
 _TIM2_CCR3H               00005315   defined in Debug\bright_mode.o
 _TIM2_CCR3L               00005316   defined in Debug\bright_mode.o
-_TIM2_CH2_Duty            0000856b   defined in Debug\stm8_tim2pwm.o section .text
+_TIM2_CH2_Duty            0000859d   defined in Debug\stm8_tim2pwm.o section .text
                                      used in Debug\led.o
-_TIM2_CH3_Duty            00008574   defined in Debug\stm8_tim2pwm.o section .text
+_TIM2_CH3_Duty            000085a6   defined in Debug\stm8_tim2pwm.o section .text
                                      used in Debug\led.o
 _TIM2_CNTR                0000530c   defined in Debug\bright_mode.o
 _TIM2_CNTRH               0000530c   defined in Debug\bright_mode.o
@@ -707,7 +707,7 @@ _TIM2_CNTRL               0000530d   defined in Debug\bright_mode.o
 _TIM2_CR1                 00005300   defined in Debug\bright_mode.o
 _TIM2_EGR                 00005306   defined in Debug\bright_mode.o
 _TIM2_IER                 00005303   defined in Debug\bright_mode.o
-_TIM2_Init                0000854a   defined in Debug\stm8_tim2pwm.o section .text
+_TIM2_Init                0000857c   defined in Debug\stm8_tim2pwm.o section .text
                                      used in Debug\main.o
 _TIM2_PSCR                0000530e   defined in Debug\bright_mode.o
 _TIM2_SR1                 00005304   defined in Debug\bright_mode.o
@@ -728,18 +728,18 @@ _UART1_CR4                00005237   defined in Debug\bright_mode.o
 _UART1_CR5                00005238   defined in Debug\bright_mode.o
 _UART1_DR                 00005231   defined in Debug\bright_mode.o
 _UART1_GTR                00005239   defined in Debug\bright_mode.o
-_UART1_Init               0000857d   defined in Debug\stm8_uart.o section .text
+_UART1_Init               000085af   defined in Debug\stm8_uart.o section .text
                                      used in Debug\main.o
 _UART1_PSCR               0000523a   defined in Debug\bright_mode.o
 _UART1_SR                 00005230   defined in Debug\bright_mode.o
-_UART1_SendChar           00008596   defined in Debug\stm8_uart.o section .text
+_UART1_SendChar           000085c8   defined in Debug\stm8_uart.o section .text
                                      used in Debug\main.o
-_UpdateBright             0000840d   defined in Debug\led.o section .text
+_UpdateBright             00008437   defined in Debug\led.o section .text
                                      used in Debug\bright_mode.o Debug\main.o
 _UserValidLen             00000014   defined in Debug\main.o section .bsct, initialized
 _WWDG_CR                  000050d1   defined in Debug\bright_mode.o
 _WWDG_WR                  000050d2   defined in Debug\bright_mode.o
-_WriteEEPROM              00008509   defined in Debug\stm8_eeprom.o section .text
+_WriteEEPROM              0000853b   defined in Debug\stm8_eeprom.o section .text
                                      used in Debug\bright_mode.o
 __endmem                  000001ff   defined in command file
                                      *** not used ***
@@ -764,29 +764,29 @@ _colour_set               0000000e   defined in Debug\led.o section .bsct, initi
                                      used in Debug\bright_mode.o Debug\main.o
 _cur_clod_bright          00000005   defined in Debug\led.o section .bsct, initialized
 _cur_warm_bright          00000007   defined in Debug\led.o section .bsct, initialized
-_delay_init               0000869f   defined in Debug\delay.o section .text
+_delay_init               000086dd   defined in Debug\delay.o section .text
                                      used in Debug\main.o
-_delay_ms                 000086d5   defined in Debug\delay.o section .text
+_delay_ms                 00008713   defined in Debug\delay.o section .text
                                      used in Debug\bright_mode.o Debug\led.o
-_delay_us                 000086c8   defined in Debug\delay.o section .text
+_delay_us                 00008706   defined in Debug\delay.o section .text
 _exit                     000080e9   defined in D:\Program Files (x86)\COSMIC\CXSTM8\Lib\crtsi0.sm8 section .text
 _fac_us                   00000017   defined in Debug\delay.o section .bsct, initialized
 _goal_clod_bright         00000009   defined in Debug\led.o section .bsct, initialized
 _goal_warm_bright         0000000b   defined in Debug\led.o section .bsct, initialized
 _led_open_flag            0000000f   defined in Debug\led.o section .bsct, initialized
                                      used in Debug\main.o
-_main                     000085ad   defined in Debug\main.o section .text
+_main                     000085df   defined in Debug\main.o section .text
                                      used in D:\Program Files (x86)\COSMIC\CXSTM8\Lib\crtsi0.sm8
-_putchar                  000085a5   defined in Debug\stm8_uart.o section .text
+_putchar                  000085d7   defined in Debug\stm8_uart.o section .text
 _valid_data               00000049   defined in Debug\hekr_protocol.o section .ubsct
                                      used in Debug\main.o
 _warm_bright_update       00000004   defined in Debug\led.o section .bsct, initialized
                                      used in Debug\main.o
-c_imul                    00008711   defined in (D:\Program Files (x86)\COSMIC\CXSTM8\Lib\libm0.sm8)imul.o section .text
+c_imul                    0000874f   defined in (D:\Program Files (x86)\COSMIC\CXSTM8\Lib\libm0.sm8)imul.o section .text
                                      used in Debug\led.o Debug\delay.o
-c_sdivx                   00008738   defined in (D:\Program Files (x86)\COSMIC\CXSTM8\Lib\libm0.sm8)sdivx.o section .text
+c_sdivx                   00008776   defined in (D:\Program Files (x86)\COSMIC\CXSTM8\Lib\libm0.sm8)sdivx.o section .text
                                      used in Debug\delay.o
-c_smodx                   00008732   defined in (D:\Program Files (x86)\COSMIC\CXSTM8\Lib\libm0.sm8)sdivx.o section .text
+c_smodx                   00008770   defined in (D:\Program Files (x86)\COSMIC\CXSTM8\Lib\libm0.sm8)sdivx.o section .text
                                      used in Debug\led.o
 c_x                       0000007d   defined in (D:\Program Files (x86)\COSMIC\CXSTM8\Lib\libm0.sm8)xreg.o section .ubsct
                                      used in D:\Program Files (x86)\COSMIC\CXSTM8\Lib\crtsi0.sm8
@@ -796,8 +796,8 @@ c_x                       0000007d   defined in (D:\Program Files (x86)\COSMIC\C
 c_y                       00000080   defined in (D:\Program Files (x86)\COSMIC\CXSTM8\Lib\libm0.sm8)yreg.o section .ubsct
                                      used in D:\Program Files (x86)\COSMIC\CXSTM8\Lib\crtsi0.sm8
                                              Debug\main.o
-f_NonHandledInterrupt     0000875d   defined in Debug\stm8_interrupt_vector.o section .text
-f_TIM1_IRQHandler         00008635   defined in Debug\main.o section .text
+f_NonHandledInterrupt     0000879b   defined in Debug\stm8_interrupt_vector.o section .text
+f_TIM1_IRQHandler         00008673   defined in Debug\main.o section .text
                                      used in Debug\stm8_interrupt_vector.o
-f_UART1_Recv_IRQHandler   00008667   defined in Debug\main.o section .text
+f_UART1_Recv_IRQHandler   000086a5   defined in Debug\main.o section .text
                                      used in Debug\stm8_interrupt_vector.o

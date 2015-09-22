@@ -20,7 +20,7 @@ extern u8 led_open_flag;
 typedef	enum
 {
 	LED_Query = 0x00,               //查询设备当前状态
-	LED_PowerONOFF = 0x02,          //开关灯具，具体打开还是关闭见“开关状态”字节位
+	LED_PowerONOFF = 0x02,          //开关灯具
 	LED_Bright_Control = 0x03,      //调整亮度到相应值
 	LED_Colour_Temperature = 0x06   //调整色温到相应值
 	

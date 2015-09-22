@@ -25,9 +25,11 @@ void Bright_ModeInit(void)
     count++;
     WriteEEPROM(COUNT_BYTE,count);
   }
-  delay_ms(500);
-  delay_ms(500);
-  delay_ms(500);
+  delay_ms(500);delay_ms(500);
+  delay_ms(500);delay_ms(500);
+  delay_ms(500);delay_ms(500);
+  delay_ms(500);delay_ms(500);
+  delay_ms(500);delay_ms(500);
   //计数位清0
   WriteEEPROM(COUNT_BYTE,0x00);
 	//模式选择 设定初始值
