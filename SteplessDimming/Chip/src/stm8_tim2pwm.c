@@ -5,8 +5,9 @@ void TIM2_Init(void)
 {
   // 0x3FFF 65535
   // 0x3A98 15000
-  TIM2_ARRH = 0x3A;
-  TIM2_ARRL = 0x98;
+  // 0x2710 10000
+  TIM2_ARRH = 0x27;
+  TIM2_ARRL = 0x10;
   
   TIM2_CCMR2 = 0x78;
   TIM2_CCMR3 = 0x78;
